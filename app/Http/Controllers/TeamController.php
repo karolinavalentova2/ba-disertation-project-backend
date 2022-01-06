@@ -23,9 +23,6 @@ class TeamController extends Controller
         }
         return $team->toJson();
     }
-    public function doGetTeamsByUserId(string $id) {
-
-    }
     public function doGetAllTeams(): string
     {
         $data = $this->doGetAll();

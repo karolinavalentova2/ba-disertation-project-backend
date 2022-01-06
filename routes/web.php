@@ -35,19 +35,27 @@ $router->delete('/project/{id}', 'ProjectController@doDeleteProjectById');
 
 $router->get('/task', 'ProjectTaskController@doGetAllTasks');
 $router->get('/task/{id}', 'ProjectTaskController@doGetTaskById');
+$router->get('/task/byBoardId/{boardId}', 'ProjectTaskController@doReturnTasksByBoardId');
 $router->post('/task', 'ProjectTaskController@doInsertTask');
 $router->put('/task/{id}', 'ProjectTaskController@doUpdateTaskById');
 $router->delete('/task/{id}', 'ProjectTaskController@doDeleteTaskById');
 
-$router->get('/board/', 'ProjectBoardController@doGetAllBoardColumns');
+$router->get('/board', 'ProjectBoardController@doGetAllBoardColumns');
 $router->get('/board/byProjectId/{projectId}', 'ProjectBoardController@doGetProjectBoardsByProjectId');
 $router->get('/board/{id}', 'ProjectBoardController@doGetProjectBoardColumnById');
-$router->post('/board', 'ProjectBoardController@doInsertBoardColumn');
+$router->post('/board', 'ProjectBoardController@doInsertProjectBoardColumn');
 $router->put('/board/{id}', 'ProjectBoardController@doUpdateBoardColumnById');
 $router->delete('/board/{id}', 'ProjectBoardController@doDeleteBoardColumnById');
 
 $router->get('/comment', 'CommentController@doGetAllComments');
 $router->get('/comment/{id}', 'CommentController@doGetCommentById');
+$router->get('/comment/byTaskId/{taskId}', 'CommentController@doReturnCommentsByTaskId');
 $router->post('/comment', 'CommentController@doInsertComment');
 $router->put('/comment/{id}', 'CommentController@doUpdateCommentById');
 $router->delete('/comment/{id}', 'CommentController@doDeleteCommentById');
+
+$router->get('/notification/{id}', 'NotificationController@doGetNotificationById');
+$router->get('/notification/byUserId/{userId}', 'NotificationController@doGetNotificationsByUser');
+$router->post('/notification', 'NotificationController@doInsertNotification');
+$router->put('/notification/{id}', 'NotificationController@doUpdateNotification');
+$router->delete('/notification/{id}', 'NotificationController@doDeleteNotificationById');

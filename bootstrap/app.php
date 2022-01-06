@@ -101,7 +101,7 @@ $app->middleware([
 |
 */
 $app->withFacades();
-$app->withEloquent();
+//$app->withEloquent();
 $app->register(MigrationsGeneratorServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 

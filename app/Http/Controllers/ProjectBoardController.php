@@ -28,13 +28,12 @@ class ProjectBoardController extends Controller
     {
         return $this->doInsert($request->all());
     }
-
     public function doGetProjectBoardsByProjectId(string $projectId): string
     {
         $boards = $this->doGetAllByProperty("project_fk", $projectId);
         foreach ($boards as $board) {
-            $board->author = $this->doGetDataByPropertyWithTable("users", "id", $board->author_fk);
-            $board->project = $this->doGetDataByPropertyWithTable("projects", "id", $board->project_fk);
+            $board->author = $this->doGetDataByPropertyWithTable("users", "id", $board->author_fk)->first();
+            $board->project = $this->doGetDataByPropertyWithTable("projects", "id", $board->project_fk)->first();
             $board->tasks = $this->doGetDataByPropertyWithTable("projecttasks", "column_fk", $board->id);
         }
 

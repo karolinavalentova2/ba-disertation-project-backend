@@ -30,4 +30,14 @@ class CommentController extends Controller
     {
         return $this->doInsert($request->all());
     }
+
+    public function doReturnCommentsByTaskId(string $taskId) {
+        $data = $this->doGetAllByProperty("task_fk", $taskId);
+
+        foreach ($data as $entry) {
+            $entry->author = $this->doGetDataByIdWithTable("users", $entry->author_fk);
+        }
+
+        return $data->toJson();
+    }
 }

@@ -13,7 +13,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     public string $table;
-    public function doGetAllByProperty(string $property, $value)
+    public function doGetAllByProperty(string $property, $value): Collection
     {
         return DB::table($this->table)->where($property, '=' ,$value)->get();
     }
@@ -25,18 +25,19 @@ class Controller extends BaseController
             return (new RouteError($ex->getMessage()));
         }
     }
-    public function doInsert(array $newEntry): MissingParameterError|int|string
+    public function doInsert(array $newEntry)
     {
         try {
             if(empty($newEntry)) {
                 return new MissingParameterError("Cannot insert empty record / " . $this->table, 500);
             }
-
             $newEntry["created"] = new \DateTime();
+            if(isset($newEntry["modified"])) {
+                $newEntry["modified"] = new \DateTime();
+            }
 
-            $insertId = DB::table($this->table)->insertGetId(
-                [...$newEntry]
-            );
+
+            $insertId = DB::table($this->table)->insert($newEntry);
 
             return $this->doGetById($insertId);
         } catch (Exception $ex) {
